@@ -27,8 +27,16 @@ export const researchTool = defineType({
     defineField({ name: 'datasetFile', title: 'Dataset File (CSV/JSON)', type: 'file' }),
     defineField({ name: 'xAxis', title: 'X-Axis Column Name', type: 'string' }),
     defineField({ name: 'yAxis', title: 'Y-Axis Column Name', type: 'string' }),
-    defineField({ name: 'previewImage', title: 'Preview Image', type: 'image', options: { hotspot: true } }),
+    defineField({
+      name: 'previewImage',
+      title: 'Preview Image',
+      type: 'image',
+      options: { hotspot: true },
+      fields: [
+        defineField({ name: 'alt', title: 'Alt Text', type: 'string' }),
+      ],
+    }),
     defineField({ name: 'tags', title: 'Tags', type: 'array', of: [{ type: 'string' }] }),
-    defineField({ name: 'publishedDate', title: 'Published Date', type: 'date' }),
+    defineField({ name: 'publishedDate', title: 'Published Date', type: 'date', validation: r => r.required() }),
   ],
 })

@@ -8,7 +8,15 @@ export const profile = defineType({
   __experimental_actions: ['update', 'publish'],
   fields: [
     defineField({ name: 'name', title: 'Full Name', type: 'string', validation: r => r.required() }),
-    defineField({ name: 'photo', title: 'Photo', type: 'image', options: { hotspot: true } }),
+    defineField({
+      name: 'photo',
+      title: 'Photo',
+      type: 'image',
+      options: { hotspot: true },
+      fields: [
+        defineField({ name: 'alt', title: 'Alt Text', type: 'string' }),
+      ],
+    }),
     defineField({ name: 'bio', title: 'Bio', type: 'array', of: [{ type: 'block' }] }),
     defineField({ name: 'department', title: 'Department', type: 'string' }),
     defineField({ name: 'university', title: 'University', type: 'string' }),
