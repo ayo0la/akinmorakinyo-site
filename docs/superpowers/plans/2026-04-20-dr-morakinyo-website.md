@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a 7-page personal academic website for Dr. Akinola Morakinyo using Next.js 14 + Sanity CMS, deployed to Vercel.
+**Goal:** Build a 7-page personal academic website for Dr. Akinola Morakinyo using Next.js 16 + Sanity CMS, deployed to Vercel.
 
 **Architecture:** Next.js App Router site with Sanity v3 as the CMS. Static content pages (Papers, Articles, Blog, About) are server-rendered. Interactive pages (Tools, Contact) use client components. Research tools render CSV datasets via Recharts and a calculator registry pattern. Contact form submits via a Next.js API route to Resend.
 
-**Tech Stack:** Next.js 14, TypeScript, Tailwind CSS, Sanity v3, Recharts, PapaParse, Resend, Vitest + React Testing Library
+**Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, Sanity v3, Recharts, PapaParse, Resend, Vitest + React Testing Library
 
 ---
 
