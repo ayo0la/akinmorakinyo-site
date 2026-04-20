@@ -1,12 +1,12 @@
 import type { PortableTextBlock } from '@portabletext/react'
 
 export type SanityImage = {
-  asset: { _ref: string; url: string }
+  asset: { _ref: string; url?: string }
   alt?: string
 }
 
 export type SanityFile = {
-  asset: { _ref: string; url: string }
+  asset: { _ref: string; url?: string }
 }
 
 export type Paper = {
@@ -37,7 +37,7 @@ export type Article = {
 export type BlogPost = {
   _id: string
   title: string
-  slug: string
+  slug: { current: string }
   body: PortableTextBlock[]
   publishedDate: string
   coverImage: SanityImage
@@ -56,9 +56,9 @@ export type ResearchTool = {
   type: ToolType
   visualizationType: VisualizationType
   componentSlug: string
-  datasetFileUrl: string
-  xAxis: string
-  yAxis: string
+  datasetFileUrl?: string
+  xAxis?: string
+  yAxis?: string
   previewImage: SanityImage
   tags: string[]
   publishedDate: string
