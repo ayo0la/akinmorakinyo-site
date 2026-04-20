@@ -4,6 +4,8 @@ export const profile = defineType({
   name: 'profile',
   title: 'Profile',
   type: 'document',
+  // @ts-ignore
+  __experimental_actions: ['update', 'publish'],
   fields: [
     defineField({ name: 'name', title: 'Full Name', type: 'string', validation: r => r.required() }),
     defineField({ name: 'photo', title: 'Photo', type: 'image', options: { hotspot: true } }),
