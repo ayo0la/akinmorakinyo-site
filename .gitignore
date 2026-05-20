@@ -44,3 +44,6 @@ next-env.d.ts
 .env.local
 .env*.local
 .superpowers/
+docs/superpowers/
+AGENTS.md
+CLAUDE.md
