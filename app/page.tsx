@@ -1,4 +1,6 @@
 import { getProfile, getFeaturedPaper, getFeaturedArticle, getFeaturedBlogPost, getResearchTools } from '@/sanity/queries'
+
+export const revalidate = 60
 import { Hero } from '@/components/home/hero'
 import { RecentWork } from '@/components/home/recent-work'
 import { ToolsStrip } from '@/components/home/tools-strip'

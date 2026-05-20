@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import Image from 'next/image'
 import { PortableText } from '@portabletext/react'
 import { getProfile } from '@/sanity/queries'

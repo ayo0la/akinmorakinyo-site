@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import { getBlogPosts } from '@/sanity/queries'
 import { PostCard } from '@/components/blog/post-card'
 

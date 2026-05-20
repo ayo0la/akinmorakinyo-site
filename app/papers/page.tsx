@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import { getPapers } from '@/sanity/queries'
 import { PaperCard } from '@/components/papers/paper-card'
 

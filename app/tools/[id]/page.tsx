@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import { notFound } from 'next/navigation'
 import { getResearchTool } from '@/sanity/queries'
 import { DatasetViewer } from '@/components/tools/dataset-viewer'

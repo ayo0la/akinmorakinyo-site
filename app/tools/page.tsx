@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import { getResearchTools } from '@/sanity/queries'
 import { ToolCard } from '@/components/tools/tool-card'
 

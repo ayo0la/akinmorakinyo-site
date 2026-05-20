@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import { getArticles } from '@/sanity/queries'
 import { ArticleCard } from '@/components/articles/article-card'
 
