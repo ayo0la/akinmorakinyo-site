@@ -1,36 +1,32 @@
-import { getProfile, getFeaturedPaper, getFeaturedArticle, getFeaturedBlogPost, getResearchTools } from '@/sanity/queries'
-
-export const revalidate = 60
+import Link from 'next/link'
+import { getProfile, getFeaturedPaper, getPosts, getTools } from '@/lib/content'
 import { Hero } from '@/components/home/hero'
 import { RecentWork } from '@/components/home/recent-work'
 import { ToolsStrip } from '@/components/home/tools-strip'
 
-export default async function HomePage() {
-  const [profile, paper, article, post, tools] = await Promise.all([
-    getProfile(),
-    getFeaturedPaper(),
-    getFeaturedArticle(),
-    getFeaturedBlogPost(),
-    getResearchTools(),
-  ])
-
-  if (!profile) {
-    return (
-      <div className="max-w-6xl mx-auto px-4 py-20 text-center text-[var(--text-muted)]">
-        Profile not configured. Add content in Sanity Studio.
-      </div>
-    )
-  }
+export default function HomePage() {
+  const profile = getProfile()
+  const paper = getFeaturedPaper()
+  const post = getPosts()[0] ?? null
+  const tools = getTools()
 
   return (
-    <div className="max-w-6xl mx-auto md:grid md:grid-cols-[300px_1fr]">
-      <div className="md:sticky md:top-14 md:h-[calc(100vh-3.5rem)] md:overflow-y-auto">
-        <Hero profile={profile} />
-      </div>
-      <div>
-        <RecentWork paper={paper} article={article} post={post} />
-        <ToolsStrip tools={tools} />
-      </div>
+    <div>
+      <Hero profile={profile} />
+      <RecentWork paper={paper} post={post} />
+      <section className="border-t border-[var(--border)]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14">
+          <h2 className="font-sans text-xs tracking-[0.25em] uppercase text-[var(--accent)]">About</h2>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed">{profile.bio[0]}</p>
+          <Link
+            href="/about"
+            className="mt-5 inline-block font-sans text-sm text-[var(--accent)] hover:underline underline-offset-4"
+          >
+            More about Dr. Morakinyo →
+          </Link>
+        </div>
+      </section>
+      <ToolsStrip tools={tools} />
     </div>
   )
 }

@@ -1,27 +1,65 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-:root {
-  --navy: #1a1a2e;
-  --navy-mid: #111827;
-  --navy-light: #2d2d4e;
-  --gold: #c9a84c;
-  --gold-dim: #c9a84c33;
-  --text: #f0f0f0;
-  --text-muted: #888888;
-  --text-dim: #cccccc;
-  --border: #334155;
+@theme inline {
+  --font-display: var(--font-playfair);
 }
 
-body {
-  background-color: var(--navy);
-  color: var(--text);
-  font-family: system-ui, -apple-system, sans-serif;
+:root,
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #10131f;
+  --surface: #181c2e;
+  --surface-2: #1f2438;
+  --heading: #f4f1e8;
+  --text: #c9c7bd;
+  --text-muted: #8a8fa0;
+  --accent: #c9a84c;
+  --accent-strong: #ddc272;
+  --accent-contrast: #10131f;
+  --accent-soft: rgba(201, 168, 76, 0.22);
+  --border: rgba(201, 168, 76, 0.14);
+  --danger: #f87171;
 }
 
-h1, h2, h3 {
-  font-family: Georgia, 'Times New Roman', serif;
+html[data-theme='light'] {
+  color-scheme: light;
+  --bg: #faf6ed;
+  --surface: #fffdf8;
+  --surface-2: #f2ecdf;
+  --heading: #1c2438;
+  --text: #3a4157;
+  --text-muted: #616779;
+  --accent: #7d631f;
+  --accent-strong: #634e18;
+  --accent-contrast: #fffdf8;
+  --accent-soft: rgba(154, 123, 45, 0.3);
+  --border: rgba(28, 36, 56, 0.12);
+  --danger: #b3261e;
 }
 
-a { color: inherit; text-decoration: none; }
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-source-serif), Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-playfair), Georgia, serif;
+    color: var(--heading);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+  }
+}

@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     from: 'website@drakinolamorakinyo.com',
     to: payload.email,
     subject: 'Your message to Dr. Akinola Morakinyo',
-    text: `Hi ${payload.name},\n\nThank you for reaching out. Dr. Morakinyo will respond within 3-5 business days.\n\nBest regards,\nDr. Akinola E. Morakinyo`,
+    text: `Hi ${payload.name},\n\nThank you for reaching out. Dr. Morakinyo will respond within 3 to 5 business days.\n\nBest regards,\nDr. Akinola E. Morakinyo`,
   })
 
   return NextResponse.json({ success: true })

@@ -4,6 +4,7 @@ import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, R
 import { parseCSV, sortRows, filterRows } from '@/lib/csv-parser'
 import type { CSVRow } from '@/lib/csv-parser'
 import type { VisualizationType } from '@/lib/types'
+import { useThemeTokens } from '@/hooks/use-theme-tokens'
 
 type Props = {
   csvUrl: string
@@ -41,6 +42,16 @@ export function DatasetViewer({ csvUrl, initialCsv, xAxis, yAxis, visualizationT
     )
   }
 
+  const t = useThemeTokens(['accent', 'border', 'text-muted', 'surface', 'heading'])
+  const chartAccent = t.accent ?? '#c9a84c'
+  const chartGrid = t.border ?? 'rgba(201, 168, 76, 0.14)'
+  const chartTick = t['text-muted'] ?? '#8a8fa0'
+  const tooltipStyle = {
+    background: t.surface ?? '#181c2e',
+    border: `1px solid ${t.border ?? 'rgba(201, 168, 76, 0.14)'}`,
+    color: t.heading ?? '#f4f1e8',
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center justify-between">
@@ -49,14 +60,14 @@ export function DatasetViewer({ csvUrl, initialCsv, xAxis, yAxis, visualizationT
           placeholder="Search data..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="bg-[var(--navy-mid)] border border-[var(--border)] rounded px-3 py-1.5 text-sm text-[var(--text)] placeholder-[var(--text-muted)] w-full sm:w-64"
+          className="bg-[var(--surface-2)] border border-[var(--border)] rounded px-3 py-1.5 text-sm text-[var(--text)] placeholder-[var(--text-muted)] w-full sm:w-64"
         />
         {visualizationType === 'mixed' && (
           <div className="flex gap-2">
-            <button onClick={() => setView('chart')} className={`px-3 py-1.5 rounded text-sm ${view === 'chart' ? 'bg-[var(--gold)] text-[var(--navy)] font-bold' : 'border border-[var(--border)] text-[var(--text-muted)]'}`}>
+            <button onClick={() => setView('chart')} className={`px-3 py-1.5 rounded text-sm ${view === 'chart' ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold' : 'border border-[var(--border)] text-[var(--text-muted)]'}`}>
               Chart
             </button>
-            <button onClick={() => setView('table')} className={`px-3 py-1.5 rounded text-sm ${view === 'table' ? 'bg-[var(--gold)] text-[var(--navy)] font-bold' : 'border border-[var(--border)] text-[var(--text-muted)]'}`}>
+            <button onClick={() => setView('table')} className={`px-3 py-1.5 rounded text-sm ${view === 'table' ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold' : 'border border-[var(--border)] text-[var(--text-muted)]'}`}>
               Table
             </button>
           </div>
@@ -68,19 +79,19 @@ export function DatasetViewer({ csvUrl, initialCsv, xAxis, yAxis, visualizationT
           <ResponsiveContainer width="100%" height="100%">
             {visualizationType === 'bar-chart' ? (
               <BarChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                <XAxis dataKey={xAxis} tick={{ fill: '#888', fontSize: 11 }} />
-                <YAxis tick={{ fill: '#888', fontSize: 11 }} />
-                <Tooltip contentStyle={{ background: '#1a1a2e', border: '1px solid #c9a84c33', color: '#f0f0f0' }} />
-                <Bar dataKey={yAxis} fill="#c9a84c" />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartGrid} />
+                <XAxis dataKey={xAxis} tick={{ fill: chartTick, fontSize: 11 }} />
+                <YAxis tick={{ fill: chartTick, fontSize: 11 }} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Bar dataKey={yAxis} fill={chartAccent} />
               </BarChart>
             ) : (
               <LineChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                <XAxis dataKey={xAxis} tick={{ fill: '#888', fontSize: 11 }} />
-                <YAxis tick={{ fill: '#888', fontSize: 11 }} />
-                <Tooltip contentStyle={{ background: '#1a1a2e', border: '1px solid #c9a84c33', color: '#f0f0f0' }} />
-                <Line type="monotone" dataKey={yAxis} stroke="#c9a84c" dot={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartGrid} />
+                <XAxis dataKey={xAxis} tick={{ fill: chartTick, fontSize: 11 }} />
+                <YAxis tick={{ fill: chartTick, fontSize: 11 }} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Line type="monotone" dataKey={yAxis} stroke={chartAccent} dot={false} />
               </LineChart>
             )}
           </ResponsiveContainer>
@@ -93,7 +104,7 @@ export function DatasetViewer({ csvUrl, initialCsv, xAxis, yAxis, visualizationT
             <thead>
               <tr className="border-b border-[var(--border)]">
                 {headers.map(h => (
-                  <th key={h} onClick={() => handleSort(h)} className="py-2 px-3 text-[var(--gold)] text-xs uppercase tracking-wide cursor-pointer hover:text-white select-none">
+                  <th key={h} onClick={() => handleSort(h)} className="py-2 px-3 text-[var(--accent)] text-xs uppercase tracking-wide cursor-pointer hover:text-[var(--heading)] select-none">
                     {h} {sort?.column === h ? (sort.direction === 'asc' ? '↑' : '↓') : ''}
                   </th>
                 ))}
@@ -101,9 +112,9 @@ export function DatasetViewer({ csvUrl, initialCsv, xAxis, yAxis, visualizationT
             </thead>
             <tbody>
               {sorted.map((row, i) => (
-                <tr key={i} className="border-b border-[var(--border)] hover:bg-[var(--navy-mid)]">
+                <tr key={i} className="border-b border-[var(--border)] hover:bg-[var(--surface-2)]">
                   {headers.map(h => (
-                    <td key={h} className="py-2 px-3 text-[var(--text-dim)]">{row[h]}</td>
+                    <td key={h} className="py-2 px-3 text-[var(--text)]">{row[h]}</td>
                   ))}
                 </tr>
               ))}

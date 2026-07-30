@@ -1,15 +1,19 @@
 import Link from 'next/link'
 import type { ResearchTool } from '@/lib/types'
+import { formatYear } from '@/lib/format'
 
 export function ToolCard({ tool }: { tool: ResearchTool }) {
   return (
-    <Link href={`/tools/${tool._id}`} className="bg-[var(--navy)] rounded border border-transparent hover:border-[var(--gold-dim)] transition-colors p-5 flex flex-col gap-2">
-      <div className="flex justify-between items-start">
-        <span className="text-[var(--gold)] text-xs capitalize">{tool.type}</span>
-        {tool.publishedDate && <span className="text-[var(--text-muted)] text-xs">{tool.publishedDate.slice(0, 4)}</span>}
+    <Link
+      href={`/tools/${tool.id}`}
+      className="bg-[var(--surface)] border border-[var(--border)] rounded-sm p-6 flex flex-col gap-2 hover:border-[var(--accent-soft)] hover:-translate-y-0.5 transition-all"
+    >
+      <div className="flex justify-between items-baseline font-sans text-xs">
+        <span className="uppercase tracking-wider text-[var(--accent)] capitalize">{tool.type}</span>
+        <span className="text-[var(--text-muted)]">{formatYear(tool.publishedDate)}</span>
       </div>
-      <h2 className="font-serif text-white text-base font-semibold">{tool.title}</h2>
-      {tool.description && <p className="text-[var(--text-dim)] text-sm leading-relaxed line-clamp-2">{tool.description}</p>}
+      <h2 className="text-xl font-medium leading-snug">{tool.title}</h2>
+      <p className="text-sm leading-relaxed text-[var(--text)] line-clamp-2">{tool.description}</p>
     </Link>
   )
 }

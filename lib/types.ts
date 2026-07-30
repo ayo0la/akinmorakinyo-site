@@ -1,80 +1,57 @@
-import type { PortableTextBlock } from '@portabletext/react'
-
-export type SanityImage = {
-  asset: { _ref: string; url?: string }
-  alt?: string
-}
-
-export type SanityFile = {
-  asset: { _ref: string; url?: string }
-}
-
 export type Paper = {
-  _id: string
+  id: string
   title: string
   abstract: string
-  pdfUrl: string
   publishedDate: string
-  journal: string
+  journal?: string
   coAuthors: string[]
   tags: string[]
-  googleScholarUrl: string
-  featured: boolean
+  pdfPath?: string
+  googleScholarUrl?: string
+  featured?: boolean
 }
 
-export type Article = {
-  _id: string
+export type WritingPostMeta = {
+  slug: string
   title: string
-  publication: string
-  publicationLogo: SanityImage
-  externalUrl: string
-  publishedDate: string
+  date: string
   excerpt: string
-  tags: string[]
-  featured: boolean
+  tag?: string
+  externalUrl?: string
+  publication?: string
+  draft?: boolean
 }
 
-export type BlogPost = {
-  _id: string
-  title: string
-  slug: { current: string }
-  body: PortableTextBlock[]
-  publishedDate: string
-  coverImage: SanityImage
-  excerpt: string
-  tags: string[]
-  featured: boolean
-}
+export type WritingPost = WritingPostMeta & { html: string }
 
 export type VisualizationType = 'table' | 'line-chart' | 'bar-chart' | 'mixed'
 export type ToolType = 'calculator' | 'dataset'
 
 export type ResearchTool = {
-  _id: string
+  id: string
   title: string
   description: string
   type: ToolType
   visualizationType: VisualizationType
   componentSlug: string
-  datasetFileUrl?: string
+  datasetPath?: string
   xAxis?: string
   yAxis?: string
-  previewImage: SanityImage
   tags: string[]
   publishedDate: string
 }
 
 export type Profile = {
   name: string
-  photo: SanityImage
-  bio: PortableTextBlock[]
+  photo: string
+  bio: string[]
   department: string
   university: string
-  cvFileUrl: string
-  universityUrl: string
-  linkedinUrl: string
-  googleScholarUrl: string
   email: string
+  universityUrl?: string
+  linkedinUrl?: string
+  googleScholarUrl?: string
+  cvPath?: string
   statementOfPurpose: string
 }
 

@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dr. Akinola E. Morakinyo: Personal Site
 
-## Getting Started
+This is the personal academic website for Dr. Akinola E. Morakinyo. It is a Next.js site with no CMS: all content lives in plain files in this repo, and you edit those files directly to update the site.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Before committing changes, run:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run test:run
+npm run build
+```
 
-## Learn More
+`test:run` runs the full test suite once. `build` produces a production build and will fail loudly if a writing post is missing required frontmatter or has an invalid filename, so it is worth running before you push.
 
-To learn more about Next.js, take a look at the following resources:
+## Where content lives
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `content/profile.ts`: name, bio paragraphs, links (LinkedIn, Google Scholar, university profile), and the profile photo path.
+- `content/papers.ts`: the list of published papers. Add a new entry to add a paper. Any PDF referenced by a paper should be placed in `public/papers/` and linked from there.
+- `content/tools.ts`: the research tools shown on `/tools` (currently the inflation calculator).
+- `content/writing/*.md`: one Markdown file per writing post, essay, or outbound column.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Writing posts
 
-## Deploy on Vercel
+Each file in `content/writing/` is a Markdown file with frontmatter at the top, for example:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```markdown
+---
+title: On Inflation Expectations
+date: 2026-07-01
+excerpt: Why anchored expectations matter more than headline numbers.
+tag: Essay
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Body text goes here.
+```
+
+Frontmatter fields:
+
+- `title` (required)
+- `date` (required, must be in `YYYY-MM-DD` form)
+- `excerpt` (required, shown on the writing list)
+- `tag` (optional, a short label like "Essay")
+- `publication` and `externalUrl` (optional, use both together for a column that was published elsewhere, like Nairametrics, so the site links out instead of rendering the body)
+- `draft: true` (optional, hides the post from the site while you are still writing it)
+
+### Filename rule
+
+The filename becomes the post's URL, so filenames must use lowercase letters, numbers, and hyphens only, for example `on-inflation-expectations.md`. No underscores, no capital letters, no spaces. If a file breaks this rule, or is missing a valid `date`, the build will fail with an error naming the exact file, rather than shipping a broken page.
+
+## Themes
+
+The site has a dark theme and a light theme, toggled from the nav. Dark is the default theme.
+
+## Environment variables
+
+The contact form needs two environment variables to send email, set in `.env.local` for local development and in your hosting provider's settings for production:
+
+- `RESEND_API_KEY`: API key for Resend, used to send contact form submissions.
+- `CONTACT_EMAIL`: the email address that should receive contact form submissions.

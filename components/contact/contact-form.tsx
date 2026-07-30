@@ -7,8 +7,8 @@ function Field({ id, label, type = 'text', required = false }: { id: string; lab
     <div>
       <label htmlFor={id} className="block text-[var(--text-muted)] text-xs mb-1">{label}{required && ' *'}</label>
       {type === 'textarea'
-        ? <textarea id={id} name={id} required={required} rows={3} className="w-full bg-[var(--navy-mid)] border border-[var(--border)] text-white text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--gold)] resize-none" />
-        : <input id={id} name={id} type={type} required={required} className="w-full bg-[var(--navy-mid)] border border-[var(--border)] text-white text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--gold)]" />
+        ? <textarea id={id} name={id} required={required} rows={3} className="w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--heading)] text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--accent)] resize-none" />
+        : <input id={id} name={id} type={type} required={required} className="w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--heading)] text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--accent)]" />
       }
     </div>
   )
@@ -35,9 +35,9 @@ export function ContactForm({ inquiryType }: { inquiryType: InquiryType }) {
 
   if (status === 'success') {
     return (
-      <div className="bg-[var(--navy)] border border-[var(--gold-dim)] rounded p-6 text-center">
-        <p className="text-[var(--gold)] font-serif text-lg">Message sent.</p>
-        <p className="text-[var(--text-muted)] text-sm mt-1">Dr. Morakinyo will respond within 3-5 business days.</p>
+      <div className="bg-[var(--surface)] border border-[var(--accent-soft)] rounded p-6 text-center">
+        <p className="text-[var(--accent)] font-serif text-lg">Message sent.</p>
+        <p className="text-[var(--text-muted)] text-sm mt-1">Dr. Morakinyo will respond within 3 to 5 business days.</p>
       </div>
     )
   }
@@ -71,10 +71,10 @@ export function ContactForm({ inquiryType }: { inquiryType: InquiryType }) {
         </>
       )}
       {inquiryType === 'general' && <Field id="message" label="Message" type="textarea" required />}
-      <button type="submit" disabled={status === 'sending'} className="bg-[var(--gold)] text-[var(--navy)] font-bold py-2.5 rounded text-sm hover:opacity-90 transition-opacity disabled:opacity-60">
+      <button type="submit" disabled={status === 'sending'} className="bg-[var(--accent)] text-[var(--accent-contrast)] font-bold py-2.5 rounded text-sm hover:opacity-90 transition-opacity disabled:opacity-60">
         {status === 'sending' ? 'Sending...' : 'Send Inquiry'}
       </button>
-      {status === 'error' && <p className="text-red-400 text-sm text-center">Something went wrong. Please try again.</p>}
+      {status === 'error' && <p className="text-[var(--danger)] text-sm text-center">Something went wrong. Please try again.</p>}
     </form>
   )
 }

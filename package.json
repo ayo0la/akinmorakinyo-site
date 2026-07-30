@@ -11,18 +11,14 @@
     "test:run": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@portabletext/react": "^6.0.3",
-    "@sanity/client": "^7.21.0",
-    "@sanity/image-url": "^2.1.1",
-    "@sanity/vision": "^5.21.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.7",
     "next": "16.2.4",
-    "next-sanity": "^12.3.0",
     "papaparse": "^5.5.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "recharts": "^3.8.1",
-    "resend": "^6.12.2",
-    "sanity": "^5.21.0"
+    "resend": "^6.12.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

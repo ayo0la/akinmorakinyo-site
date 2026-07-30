@@ -15,9 +15,9 @@ export function InquirySelector({ value, onChange }: { value: InquiryType; onCha
           key={t.value}
           data-selected={value === t.value}
           onClick={() => onChange(t.value)}
-          className={`text-left p-4 rounded border transition-colors ${value === t.value ? 'border-[var(--gold)] bg-[var(--navy)]' : 'border-[var(--border)] bg-[var(--navy)] hover:border-[var(--gold-dim)]'}`}
+          className={`text-left p-4 rounded border transition-colors ${value === t.value ? 'border-[var(--accent)] bg-[var(--surface)]' : 'border-[var(--border)] bg-[var(--surface)] hover:border-[var(--accent-soft)]'}`}
         >
-          <p className={`text-sm font-semibold ${value === t.value ? 'text-[var(--gold)]' : 'text-[var(--text-dim)]'}`}>{t.label}</p>
+          <p className={`text-sm font-semibold ${value === t.value ? 'text-[var(--accent)]' : 'text-[var(--text)]'}`}>{t.label}</p>
           <p className="text-[var(--text-muted)] text-xs mt-0.5">{t.description}</p>
         </button>
       ))}

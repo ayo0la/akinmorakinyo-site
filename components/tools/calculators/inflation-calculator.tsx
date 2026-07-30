@@ -41,26 +41,26 @@ export function InflationCalculator() {
     <div className="space-y-4 max-w-md">
       <div>
         <label htmlFor="amount" className="block text-[var(--text-muted)] text-xs mb-1">Amount (NGN)</label>
-        <input id="amount" type="number" value={amount} onChange={e => setAmount(e.target.value)} placeholder="e.g. 50000" className="w-full bg-[var(--navy)] border border-[var(--border)] text-white text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--gold)]" />
+        <input id="amount" type="number" value={amount} onChange={e => setAmount(e.target.value)} placeholder="e.g. 50000" className="w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--heading)] text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--accent)]" />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label htmlFor="fromYear" className="block text-[var(--text-muted)] text-xs mb-1">From Year</label>
-          <input id="fromYear" type="number" value={fromYear} onChange={e => setFromYear(e.target.value)} min="2015" max="2024" className="w-full bg-[var(--navy)] border border-[var(--border)] text-white text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--gold)]" />
+          <input id="fromYear" type="number" value={fromYear} onChange={e => setFromYear(e.target.value)} min="2015" max="2024" className="w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--heading)] text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--accent)]" />
         </div>
         <div>
           <label htmlFor="toYear" className="block text-[var(--text-muted)] text-xs mb-1">To Year</label>
-          <input id="toYear" type="number" value={toYear} onChange={e => setToYear(e.target.value)} min="2015" max="2024" className="w-full bg-[var(--navy)] border border-[var(--border)] text-white text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--gold)]" />
+          <input id="toYear" type="number" value={toYear} onChange={e => setToYear(e.target.value)} min="2015" max="2024" className="w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--heading)] text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--accent)]" />
         </div>
       </div>
-      <button onClick={calculate} className="w-full bg-[var(--gold)] text-[var(--navy)] font-bold py-2 rounded text-sm hover:opacity-90 transition-opacity">
+      <button onClick={calculate} className="w-full bg-[var(--accent)] text-[var(--accent-contrast)] font-bold py-2 rounded text-sm hover:opacity-90 transition-opacity">
         Calculate
       </button>
-      {result === null && <p className="text-red-400 text-sm">No data available for that year range.</p>}
+      {result === null && <p className="text-[var(--danger)] text-sm">No data available for that year range.</p>}
       {result !== null && result !== undefined && (
-        <div className="bg-[var(--navy)] border border-[var(--gold-dim)] rounded p-4 text-center">
+        <div className="bg-[var(--surface)] border border-[var(--accent-soft)] rounded p-4 text-center">
           <p className="text-[var(--text-muted)] text-xs">{parseFloat(amount).toLocaleString()} NGN in {fromYear} is equivalent to</p>
-          <p className="text-[var(--gold)] text-2xl font-bold font-serif mt-1">₦{result.toLocaleString()}</p>
+          <p className="text-[var(--accent)] text-2xl font-bold font-serif mt-1">₦{result.toLocaleString()}</p>
           <p className="text-[var(--text-muted)] text-xs">in {toYear}</p>
         </div>
       )}

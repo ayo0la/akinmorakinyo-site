@@ -1,51 +1,70 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { urlFor } from '@/sanity/image-builder'
 import type { Profile } from '@/lib/types'
 
 export function Hero({ profile }: { profile: Profile }) {
   return (
-    <section className="py-10 px-4 sm:px-6 border-b border-[var(--gold-dim)] md:border-b-0 md:border-r">
-      <div className="flex flex-col items-center text-center gap-4">
-        {profile.photo?.asset?.url && (
-          <div className="w-24 h-24 rounded-full border-2 border-[var(--gold)] overflow-hidden flex-shrink-0">
-            <Image
-              src={urlFor(profile.photo).width(96).height(96).url()}
-              alt={profile.name}
-              width={96}
-              height={96}
-              className="object-cover w-full h-full"
-            />
-          </div>
-        )}
-        <div>
-          <h1 className="font-serif text-2xl sm:text-3xl text-white font-bold">{profile.name}</h1>
-          <p className="text-[var(--text-muted)] text-xs mt-1">{profile.department}</p>
-          <p className="text-[var(--text-muted)] text-xs">{profile.university}</p>
-        </div>
-        {profile.statementOfPurpose && (
-          <blockquote className="border-l-2 border-[var(--gold)] pl-4 text-[var(--text-dim)] text-sm italic text-left max-w-sm">
+    <section className="px-4 sm:px-6">
+      <div className="max-w-5xl mx-auto py-16 sm:py-24 grid gap-12 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="order-2 md:order-1 text-center md:text-left">
+          <p className="font-sans text-xs tracking-[0.25em] uppercase text-[var(--accent)]">
+            Economist · Researcher · Columnist
+          </p>
+          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.08]">
+            {profile.name}
+          </h1>
+          <div className="mt-6 h-px w-16 bg-[var(--accent)] mx-auto md:mx-0" />
+          <p className="mt-6 font-sans text-sm text-[var(--text-muted)]">
+            {profile.department}
+            <br />
+            {profile.university}
+          </p>
+          <blockquote className="mt-8 max-w-md mx-auto md:mx-0 border-l-2 border-[var(--accent)] pl-5 text-left text-lg italic leading-relaxed text-[var(--text)]">
             {profile.statementOfPurpose}
           </blockquote>
-        )}
-        <div className="flex gap-3">
-          <Link href="/papers" className="bg-[var(--gold)] text-[var(--navy)] px-4 py-2 rounded text-sm font-bold hover:opacity-90 transition-opacity">
-            View Papers
-          </Link>
-          <Link href="/blog" className="border border-[var(--gold)] text-[var(--gold)] px-4 py-2 rounded text-sm hover:bg-[var(--gold)] hover:text-[var(--navy)] transition-colors">
-            Read Blog
-          </Link>
+          <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-4">
+            <Link
+              href="/papers"
+              className="bg-[var(--accent)] text-[var(--accent-contrast)] px-6 py-3 rounded-sm font-sans text-sm font-semibold tracking-wide hover:bg-[var(--accent-strong)] transition-colors"
+            >
+              View Papers
+            </Link>
+            <Link
+              href="/writing"
+              className="border border-[var(--accent)] text-[var(--accent)] px-6 py-3 rounded-sm font-sans text-sm tracking-wide hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-colors"
+            >
+              Read Writing
+            </Link>
+          </div>
+          <div className="mt-8 flex justify-center md:justify-start gap-5 font-sans text-xs text-[var(--text-muted)]">
+            {profile.linkedinUrl && (
+              <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent)] transition-colors">
+                LinkedIn
+              </a>
+            )}
+            {profile.googleScholarUrl && (
+              <a href={profile.googleScholarUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent)] transition-colors">
+                Google Scholar
+              </a>
+            )}
+            {profile.universityUrl && (
+              <a href={profile.universityUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent)] transition-colors">
+                University
+              </a>
+            )}
+          </div>
         </div>
-        <div className="flex gap-4 text-xs text-[var(--text-muted)]">
-          {profile.linkedinUrl && (
-            <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--gold)] transition-colors">LinkedIn</a>
-          )}
-          {profile.googleScholarUrl && (
-            <a href={profile.googleScholarUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--gold)] transition-colors">Google Scholar</a>
-          )}
-          {profile.universityUrl && (
-            <a href={profile.universityUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--gold)] transition-colors">University</a>
-          )}
+        <div className="order-1 md:order-2 justify-self-center md:justify-self-end">
+          <div className="relative w-44 h-44 sm:w-60 sm:h-60 rounded-full overflow-hidden ring-1 ring-[var(--accent-soft)] ring-offset-8 ring-offset-[var(--bg)]">
+            <Image
+              src={profile.photo}
+              alt={profile.name}
+              fill
+              sizes="(min-width: 640px) 240px, 176px"
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
       </div>
     </section>
