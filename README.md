@@ -65,3 +65,4 @@ The contact form needs two environment variables to send email, set in `.env.loc
 
 - `RESEND_API_KEY`: API key for Resend, used to send contact form submissions.
 - `CONTACT_EMAIL`: the email address that should receive contact form submissions.
+- `CONTACT_FROM_EMAIL`: the address the site sends from, for example `Site Name <website@example.com>`. It must sit on a domain verified at resend.com/domains, because Resend rejects mail from unverified domains with a 403 and the form fails for the visitor.
