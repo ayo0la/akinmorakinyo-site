@@ -89,6 +89,13 @@ html[data-theme='light'] {
     opacity: 1;
     transform: none;
   }
+
+  .stack-item {
+    position: sticky;
+    /* Offset from the full nav height, not the compact one, so a card
+       never pins underneath the nav mid-transition. */
+    top: calc(var(--nav-h) + var(--i) * 12px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
