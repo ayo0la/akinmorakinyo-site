@@ -97,4 +97,24 @@ describe('PillButton', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Send' }))
     expect(onClick).toHaveBeenCalledTimes(1)
   })
+
+  it('defaults to the default size padding', () => {
+    render(<PillButton href="/x">Go</PillButton>)
+    const link = screen.getByRole('link')
+    expect(link).toHaveClass('px-7')
+    expect(link).toHaveClass('py-3')
+  })
+
+  it('renders compact size padding and not the default padding', () => {
+    render(
+      <PillButton href="/x" size="compact">
+        Go
+      </PillButton>
+    )
+    const link = screen.getByRole('link')
+    expect(link).toHaveClass('px-5')
+    expect(link).toHaveClass('py-2')
+    expect(link).not.toHaveClass('px-7')
+    expect(link).not.toHaveClass('py-3')
+  })
 })

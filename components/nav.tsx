@@ -46,7 +46,7 @@ export function Nav() {
                 {l.label}
               </Link>
             ))}
-            <PillButton href="/contact" variant="outline" className="px-5 py-2">
+            <PillButton href="/contact" variant="outline" size="compact">
               Contact
             </PillButton>
           </nav>

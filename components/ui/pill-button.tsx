@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 
 const BASE =
   'inline-flex items-center justify-center font-sans text-sm tracking-wide ' +
-  'px-7 py-3 rounded-[var(--radius-pill)] ' +
+  'rounded-[var(--radius-pill)] ' +
   'transition-colors duration-200 motion-reduce:transition-none ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 ' +
   'focus-visible:outline-[var(--accent)]'
@@ -17,10 +17,16 @@ const VARIANTS = {
     'hover:bg-[var(--accent-soft)]',
 } as const
 
+const SIZES = {
+  default: 'px-7 py-3',
+  compact: 'px-5 py-2',
+} as const
+
 export function PillButton({
   children,
   href,
   variant = 'solid',
+  size = 'default',
   external,
   className = '',
   type = 'button',
@@ -29,12 +35,13 @@ export function PillButton({
   children: ReactNode
   href?: string
   variant?: keyof typeof VARIANTS
+  size?: keyof typeof SIZES
   external?: boolean
   className?: string
   type?: 'button' | 'submit'
   onClick?: () => void
 }) {
-  const classes = `${BASE} ${VARIANTS[variant]} ${className}`
+  const classes = `${BASE} ${SIZES[size]} ${VARIANTS[variant]} ${className}`
   const isExternal = external ?? Boolean(href?.startsWith('http'))
 
   if (href && isExternal) {
