@@ -35,4 +35,30 @@ describe('globals.css cascade layers', () => {
     expect(rootIndex).toBeGreaterThan(-1)
     expect(rootIndex).toBeLessThan(layerStart)
   })
+
+  it('defines the layout scale tokens on a theme-independent :root block', () => {
+    for (const token of [
+      '--space-section:',
+      '--space-block:',
+      '--radius-card:',
+      '--radius-input:',
+      '--radius-pill:',
+      '--measure:',
+      '--gutter:',
+      '--nav-h:',
+      '--nav-h-compact:',
+    ]) {
+      expect(css).toContain(token)
+    }
+  })
+
+  it('defines a card shadow in both themes', () => {
+    const dark = css.slice(
+      css.indexOf("html[data-theme='dark']"),
+      css.indexOf("html[data-theme='light']")
+    )
+    const light = css.slice(css.indexOf("html[data-theme='light']"))
+    expect(dark).toContain('--card-shadow:')
+    expect(light).toContain('--card-shadow:')
+  })
 })
