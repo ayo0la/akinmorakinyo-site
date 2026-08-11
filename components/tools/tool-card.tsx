@@ -5,8 +5,8 @@ import { Card } from '@/components/ui/card'
 
 export function ToolCard({ tool }: { tool: ResearchTool }) {
   return (
-    <Link href={`/tools/${tool.id}`} className="block">
-      <Card interactive className="flex flex-col gap-2">
+    <Link href={`/tools/${tool.id}`} className="block h-full">
+      <Card interactive className="flex flex-col gap-2 h-full">
         <div className="flex justify-between items-baseline font-sans text-xs">
           <span className="uppercase tracking-wider text-[var(--accent)] capitalize">{tool.type}</span>
           <span className="text-[var(--text-muted)]">{formatYear(tool.publishedDate)}</span>

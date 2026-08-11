@@ -21,6 +21,11 @@ describe('PaperCard', () => {
     expect(screen.getByText('2022')).toBeInTheDocument()
   })
 
+  it('renders as a semantic <article>', () => {
+    const { container } = render(<PaperCard paper={basePaper} />)
+    expect(container.firstChild?.nodeName).toBe('ARTICLE')
+  })
+
   it('renders the journal and co-authors when present', () => {
     render(<PaperCard paper={basePaper} />)
     expect(screen.getByText('Journal of Applied Economics')).toBeInTheDocument()

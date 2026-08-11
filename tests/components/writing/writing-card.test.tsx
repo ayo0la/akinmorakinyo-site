@@ -7,7 +7,7 @@ const basePost: WritingPostMeta = {
   title: 'On Household Formation',
   date: '2024-03-15',
   excerpt: 'A short excerpt about the topic.',
-  tag: 'Essay',
+  tag: 'Field Note',
 }
 
 describe('WritingCard', () => {
@@ -21,19 +21,26 @@ describe('WritingCard', () => {
   it('renders the title, tag, and excerpt', () => {
     render(<WritingCard post={basePost} />)
     expect(screen.getByText('On Household Formation')).toBeInTheDocument()
-    expect(screen.getByText('Essay')).toBeInTheDocument()
+    expect(screen.getByText('Field Note')).toBeInTheDocument()
     expect(screen.getByText('A short excerpt about the topic.')).toBeInTheDocument()
     expect(screen.getByText('Read →')).toBeInTheDocument()
+  })
+
+  it('renders the card body as a semantic <article>', () => {
+    const { container } = render(<WritingCard post={basePost} />)
+    expect(container.querySelector('article')).not.toBeNull()
   })
 
   it('falls back to "Essay" when tag is missing', () => {
     render(<WritingCard post={{ ...basePost, tag: undefined }} />)
     expect(screen.getByText('Essay')).toBeInTheDocument()
+    expect(screen.queryByText('Field Note')).not.toBeInTheDocument()
   })
 
-  it('does not render an excerpt paragraph when excerpt is empty', () => {
-    render(<WritingCard post={{ ...basePost, excerpt: '' }} />)
-    expect(screen.queryByText('A short excerpt about the topic.')).not.toBeInTheDocument()
+  it('does not render an excerpt paragraph when the post has no excerpt', () => {
+    const postWithoutExcerpt = { ...basePost, excerpt: undefined } as unknown as WritingPostMeta
+    const { container } = render(<WritingCard post={postWithoutExcerpt} />)
+    expect(container.querySelector('p')).toBeNull()
   })
 
   it('links out to the external source with safe rel/target for an externalUrl post', () => {
