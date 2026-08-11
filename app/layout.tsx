@@ -3,6 +3,7 @@ import { Playfair_Display, Source_Serif_4 } from 'next/font/google'
 import './globals.css'
 import { Nav } from '@/components/nav'
 import { Footer } from '@/components/footer'
+import { RevealNoScriptFallback } from '@/components/ui/reveal-noscript-fallback'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <RevealNoScriptFallback />
       </head>
       <body className="min-h-screen flex flex-col antialiased">
         <Nav />
