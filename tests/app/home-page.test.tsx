@@ -14,7 +14,7 @@ describe('HomePage', () => {
 
   it('does not render a papers card while papers are empty', () => {
     render(HomePage())
-    expect(screen.queryByText('Papers')).not.toBeInTheDocument()
+    expect(screen.queryByText('Paper')).not.toBeInTheDocument()
   })
 
   it('renders a contact call to action', () => {
