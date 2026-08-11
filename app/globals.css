@@ -77,3 +77,16 @@ html[data-theme='light'] {
     background: var(--accent-soft);
   }
 }
+
+@layer components {
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 500ms ease-out, transform 500ms ease-out;
+  }
+
+  .reveal[data-revealed='true'] {
+    opacity: 1;
+    transform: none;
+  }
+}
