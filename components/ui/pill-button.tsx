@@ -21,7 +21,7 @@ export function PillButton({
   children,
   href,
   variant = 'solid',
-  external = false,
+  external,
   className = '',
   type = 'button',
   onClick,
@@ -35,10 +35,17 @@ export function PillButton({
   onClick?: () => void
 }) {
   const classes = `${BASE} ${VARIANTS[variant]} ${className}`
+  const isExternal = external ?? Boolean(href?.startsWith('http'))
 
-  if (href && external) {
+  if (href && isExternal) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes}
+        onClick={onClick}
+      >
         {children}
       </a>
     )
@@ -46,7 +53,7 @@ export function PillButton({
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} onClick={onClick}>
         {children}
       </Link>
     )
