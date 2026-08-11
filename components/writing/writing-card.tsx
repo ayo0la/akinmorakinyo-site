@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import type { WritingPostMeta } from '@/lib/types'
 import { formatDate } from '@/lib/format'
+import { Card } from '@/components/ui/card'
 
 export function WritingCard({ post }: { post: WritingPostMeta }) {
   const card = (
-    <article className="bg-[var(--surface)] border border-[var(--border)] rounded-sm p-6 hover:border-[var(--accent-soft)] hover:-translate-y-0.5 transition-all">
+    <Card as="article" interactive>
       <div className="flex items-baseline justify-between gap-4 font-sans text-xs">
         <span className="uppercase tracking-wider text-[var(--accent)]">
           {post.externalUrl ? (post.publication ?? 'External') : (post.tag ?? 'Essay')}
@@ -20,7 +21,7 @@ export function WritingCard({ post }: { post: WritingPostMeta }) {
       <span className="mt-4 inline-block font-sans text-xs text-[var(--accent)]">
         {post.externalUrl ? `Read at ${post.publication ?? 'source'} →` : 'Read →'}
       </span>
-    </article>
+    </Card>
   )
 
   return post.externalUrl ? (

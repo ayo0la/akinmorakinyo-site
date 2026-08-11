@@ -1,9 +1,10 @@
 import type { Paper } from '@/lib/types'
 import { formatYear } from '@/lib/format'
+import { Card } from '@/components/ui/card'
 
 export function PaperCard({ paper }: { paper: Paper }) {
   return (
-    <article className="bg-[var(--surface)] border border-[var(--border)] rounded-sm p-6 hover:border-[var(--accent-soft)] transition-colors">
+    <Card as="article">
       <div className="flex justify-between items-start gap-4">
         <h2 className="text-xl font-medium leading-snug">{paper.title}</h2>
         <span className="font-sans text-xs text-[var(--text-muted)] whitespace-nowrap">
@@ -33,6 +34,6 @@ export function PaperCard({ paper }: { paper: Paper }) {
           </a>
         )}
       </div>
-    </article>
+    </Card>
   )
 }
