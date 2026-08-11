@@ -1,16 +1,17 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import type { Profile } from '@/lib/types'
+import { Section } from '@/components/ui/section'
+import { PillButton } from '@/components/ui/pill-button'
 
 export function Hero({ profile }: { profile: Profile }) {
   return (
-    <section className="px-4 sm:px-6">
-      <div className="max-w-5xl mx-auto py-16 sm:py-24 grid gap-12 md:grid-cols-[1fr_auto] md:items-center">
+    <Section>
+      <div className="grid gap-[var(--space-block)] md:grid-cols-[1fr_auto] md:items-center">
         <div className="order-2 md:order-1 text-center md:text-left">
           <p className="font-sans text-xs tracking-[0.25em] uppercase text-[var(--accent)]">
             Economist · Researcher · Columnist
           </p>
-          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.08]">
+          <h1 className="mt-4 text-[clamp(2.5rem,7vw,4.5rem)] font-medium leading-[1.05] tracking-tight">
             {profile.name}
           </h1>
           <div className="mt-6 h-px w-16 bg-[var(--accent)] mx-auto md:mx-0" />
@@ -23,18 +24,10 @@ export function Hero({ profile }: { profile: Profile }) {
             {profile.statementOfPurpose}
           </blockquote>
           <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-4">
-            <Link
-              href="/papers"
-              className="bg-[var(--accent)] text-[var(--accent-contrast)] px-6 py-3 rounded-sm font-sans text-sm font-semibold tracking-wide hover:bg-[var(--accent-strong)] transition-colors"
-            >
-              View Papers
-            </Link>
-            <Link
-              href="/writing"
-              className="border border-[var(--accent)] text-[var(--accent)] px-6 py-3 rounded-sm font-sans text-sm tracking-wide hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-colors"
-            >
+            <PillButton href="/papers">View Papers</PillButton>
+            <PillButton href="/writing" variant="outline">
               Read Writing
-            </Link>
+            </PillButton>
           </div>
           <div className="mt-8 flex justify-center md:justify-start gap-5 font-sans text-xs text-[var(--text-muted)]">
             {profile.linkedinUrl && (
@@ -55,18 +48,18 @@ export function Hero({ profile }: { profile: Profile }) {
           </div>
         </div>
         <div className="order-1 md:order-2 justify-self-center md:justify-self-end">
-          <div className="relative w-44 h-44 sm:w-60 sm:h-60 rounded-full overflow-hidden ring-1 ring-[var(--accent-soft)] ring-offset-8 ring-offset-[var(--bg)]">
+          <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden ring-1 ring-[var(--accent-soft)] ring-offset-8 ring-offset-[var(--bg)]">
             <Image
               src={profile.photo}
               alt={profile.name}
               fill
-              sizes="(min-width: 640px) 240px, 176px"
+              sizes="(min-width: 640px) 192px, 160px"
               className="object-cover"
-              priority
+              preload
             />
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
