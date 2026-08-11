@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { Nav } from '@/components/nav'
 
 describe('Nav', () => {
@@ -34,5 +34,33 @@ describe('Nav', () => {
     expect(screen.getByTestId('mobile-menu')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: /close menu/i }))
     expect(screen.queryByTestId('mobile-menu')).not.toBeInTheDocument()
+  })
+
+  it('starts at full height', () => {
+    const { container } = render(<Nav />)
+    expect(container.firstChild).toHaveAttribute('data-compact', 'false')
+  })
+
+  it('compacts once the page is scrolled past the threshold', async () => {
+    const { container } = render(<Nav />)
+    window.scrollY = 120
+    window.dispatchEvent(new Event('scroll'))
+    await waitFor(() =>
+      expect(container.firstChild).toHaveAttribute('data-compact', 'true')
+    )
+  })
+
+  it('returns to full height at the top of the page', async () => {
+    const { container } = render(<Nav />)
+    window.scrollY = 120
+    window.dispatchEvent(new Event('scroll'))
+    await waitFor(() =>
+      expect(container.firstChild).toHaveAttribute('data-compact', 'true')
+    )
+    window.scrollY = 0
+    window.dispatchEvent(new Event('scroll'))
+    await waitFor(() =>
+      expect(container.firstChild).toHaveAttribute('data-compact', 'false')
+    )
   })
 })

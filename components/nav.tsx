@@ -1,7 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { PillButton } from '@/components/ui/pill-button'
 
 const links = [
   { href: '/about', label: 'About' },
@@ -12,10 +13,21 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false)
+  const [compact, setCompact] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setCompact(window.scrollY > 40)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <header
+      data-compact={compact ? 'true' : 'false'}
+      className="group sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-[8px] transition-all duration-200 motion-reduce:transition-none"
+    >
+      <div className="max-w-5xl mx-auto px-[var(--gutter)] flex items-center justify-between transition-all duration-200 motion-reduce:transition-none h-[var(--nav-h)] group-data-[compact=true]:h-[var(--nav-h-compact)]">
         <Link href="/" className="flex flex-col leading-none">
           <span className="font-sans text-[0.6rem] tracking-[0.3em] uppercase text-[var(--accent)]">Dr.</span>
           <span className="font-display text-base sm:text-lg font-semibold text-[var(--heading)]" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>
@@ -34,12 +46,9 @@ export function Nav() {
                 {l.label}
               </Link>
             ))}
-            <Link
-              href="/contact"
-              className="font-sans text-sm border border-[var(--accent)] text-[var(--accent)] px-4 py-1.5 rounded-sm hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-colors"
-            >
+            <PillButton href="/contact" variant="outline" className="px-5 py-2">
               Contact
-            </Link>
+            </PillButton>
           </nav>
 
           <ThemeToggle />
@@ -72,13 +81,16 @@ export function Nav() {
               {l.label}
             </Link>
           ))}
-          <Link
-            href="/contact"
-            className="mt-3 block text-center font-sans text-sm border border-[var(--accent)] text-[var(--accent)] px-4 py-2.5 rounded-sm"
-            onClick={() => setOpen(false)}
-          >
-            Contact
-          </Link>
+          <div className="mt-3">
+            <PillButton
+              href="/contact"
+              variant="outline"
+              className="w-full"
+              onClick={() => setOpen(false)}
+            >
+              Contact
+            </PillButton>
+          </div>
         </nav>
       )}
     </header>
