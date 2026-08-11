@@ -1,13 +1,15 @@
 import { getPosts } from '@/lib/content'
 import { WritingCard } from '@/components/writing/writing-card'
 import { PageHeader } from '@/components/page-header'
+import { Section } from '@/components/ui/section'
+import { Reveal } from '@/components/ui/reveal'
 
 export const metadata = { title: 'Writing · Dr. Akinola E. Morakinyo' }
 
 export default function WritingPage() {
   const posts = getPosts()
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+    <Section width="narrow">
       <PageHeader
         eyebrow="Writing"
         title="Essays, Columns & Commentary"
@@ -18,12 +20,14 @@ export default function WritingPage() {
           New writing is on its way. Please check back soon.
         </p>
       ) : (
-        <div className="flex flex-col gap-5">
-          {posts.map(p => (
-            <WritingCard key={p.slug} post={p} />
-          ))}
-        </div>
+        <Reveal>
+          <div className="flex flex-col gap-6">
+            {posts.map(p => (
+              <WritingCard key={p.slug} post={p} />
+            ))}
+          </div>
+        </Reveal>
       )}
-    </div>
+    </Section>
   )
 }
