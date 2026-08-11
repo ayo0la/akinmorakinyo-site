@@ -64,4 +64,49 @@ describe('buildStackSections', () => {
     expect(writing.external).toBe(false)
     expect(writing.href).toBe('/writing/the-akara-economy')
   })
+
+  it("carries the post's date on the writing section", () => {
+    const [writing] = buildStackSections({ post, paper: null, tools: [] })
+    expect(writing.date).toBe('2026-06-30')
+  })
+
+  it("labels an external post's writing section with its publication", () => {
+    const [writing] = buildStackSections({ post, paper: null, tools: [] })
+    expect(writing.label).toBe('Nairametrics')
+  })
+
+  it('falls back to "Writing" when an external post has no publication', () => {
+    const external = { ...post, publication: undefined }
+    const [writing] = buildStackSections({ post: external, paper: null, tools: [] })
+    expect(writing.label).toBe('Writing')
+  })
+
+  it("labels an internal post's writing section with its tag", () => {
+    const internal = { ...post, externalUrl: undefined, publication: undefined, tag: 'Policy' }
+    const [writing] = buildStackSections({ post: internal, paper: null, tools: [] })
+    expect(writing.label).toBe('Policy')
+  })
+
+  it('falls back to "Essay" when an internal post has no tag', () => {
+    const internal = { ...post, externalUrl: undefined, publication: undefined, tag: undefined }
+    const [writing] = buildStackSections({ post: internal, paper: null, tools: [] })
+    expect(writing.label).toBe('Essay')
+  })
+
+  it("carries the tools section's secondary link to the tools index", () => {
+    const sections = buildStackSections({ post: null, paper: null, tools: [tool] })
+    const tools = sections.find(s => s.id === 'tools')
+    expect(tools?.secondaryHref).toBe('/tools')
+    expect(tools?.secondaryCta).toBe('View all')
+  })
+
+  it('gives the writing and papers sections no secondary link', () => {
+    const sections = buildStackSections({ post, paper, tools: [tool] })
+    const writing = sections.find(s => s.id === 'writing')
+    const papers = sections.find(s => s.id === 'papers')
+    expect(writing?.secondaryHref).toBeUndefined()
+    expect(writing?.secondaryCta).toBeUndefined()
+    expect(papers?.secondaryHref).toBeUndefined()
+    expect(papers?.secondaryCta).toBeUndefined()
+  })
 })

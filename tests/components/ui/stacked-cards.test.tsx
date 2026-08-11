@@ -53,4 +53,30 @@ describe('StackedCards', () => {
     render(<StackedCards sections={sections} />)
     expect(screen.getByText('01')).toHaveAttribute('aria-hidden', 'true')
   })
+
+  it('renders a <time> element with the correct dateTime when a section has a date', () => {
+    const withDate: StackSection[] = [{ ...sections[0], date: '2026-06-30' }]
+    const { container } = render(<StackedCards sections={withDate} />)
+    const time = container.querySelector('time')
+    expect(time).not.toBeNull()
+    expect(time).toHaveAttribute('dateTime', '2026-06-30')
+  })
+
+  it('renders no <time> element when a section has no date', () => {
+    const { container } = render(<StackedCards sections={sections} />)
+    expect(container.querySelector('time')).not.toBeInTheDocument()
+  })
+
+  it('renders a secondary link pointing at the right href when the section has one', () => {
+    const withSecondary: StackSection[] = [
+      { ...sections[1], secondaryHref: '/tools', secondaryCta: 'View all' },
+    ]
+    render(<StackedCards sections={withSecondary} />)
+    expect(screen.getByRole('link', { name: 'View all' })).toHaveAttribute('href', '/tools')
+  })
+
+  it('renders only the primary CTA when a section has no secondary link', () => {
+    render(<StackedCards sections={sections} />)
+    expect(screen.queryByRole('link', { name: 'View all' })).not.toBeInTheDocument()
+  })
 })

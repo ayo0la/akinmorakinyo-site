@@ -1,6 +1,8 @@
 import type { CSSProperties } from 'react'
+import Link from 'next/link'
 import { Card } from '@/components/ui/card'
 import { PillButton } from '@/components/ui/pill-button'
+import { formatDate } from '@/lib/format'
 import type { StackSection } from '@/lib/home-sections'
 
 export function StackedCards({ sections }: { sections: StackSection[] }) {
@@ -21,9 +23,19 @@ export function StackedCards({ sections }: { sections: StackSection[] }) {
             >
               {String(i + 1).padStart(2, '0')}
             </span>
-            <p className="mt-4 font-sans text-xs tracking-[0.25em] uppercase text-[var(--text-muted)]">
-              {section.label}
-            </p>
+            <div className="mt-4 flex items-baseline justify-between gap-4">
+              <p className="font-sans text-xs tracking-[0.25em] uppercase text-[var(--text-muted)]">
+                {section.label}
+              </p>
+              {section.date && (
+                <time
+                  dateTime={section.date}
+                  className="font-sans text-xs text-[var(--text-muted)] whitespace-nowrap"
+                >
+                  {formatDate(section.date)}
+                </time>
+              )}
+            </div>
             <h2 className="mt-3 text-2xl sm:text-3xl font-medium leading-snug">
               {section.title}
             </h2>
@@ -32,7 +44,7 @@ export function StackedCards({ sections }: { sections: StackSection[] }) {
                 {section.description}
               </p>
             )}
-            <div className="mt-8">
+            <div className="mt-8 flex flex-wrap items-center gap-6">
               <PillButton
                 href={section.href}
                 external={section.external}
@@ -40,6 +52,14 @@ export function StackedCards({ sections }: { sections: StackSection[] }) {
               >
                 {section.cta}
               </PillButton>
+              {section.secondaryHref && section.secondaryCta && (
+                <Link
+                  href={section.secondaryHref}
+                  className="font-sans text-sm text-[var(--accent)] hover:underline underline-offset-4"
+                >
+                  {section.secondaryCta}
+                </Link>
+              )}
             </div>
           </Card>
         </div>

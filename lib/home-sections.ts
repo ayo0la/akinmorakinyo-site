@@ -8,6 +8,9 @@ export type StackSection = {
   href: string
   external: boolean
   cta: string
+  date?: string
+  secondaryHref?: string
+  secondaryCta?: string
 }
 
 export function buildStackSections({
@@ -24,7 +27,9 @@ export function buildStackSections({
   if (post) {
     sections.push({
       id: 'writing',
-      label: 'Writing',
+      label: post.externalUrl
+        ? (post.publication ?? 'Writing')
+        : (post.tag ?? 'Essay'),
       title: post.title,
       description: post.excerpt ?? '',
       href: post.externalUrl ?? `/writing/${post.slug}`,
@@ -32,18 +37,20 @@ export function buildStackSections({
       cta: post.externalUrl
         ? `Read at ${post.publication ?? 'source'}`
         : 'Read the essay',
+      date: post.date,
     })
   }
 
   if (paper) {
     sections.push({
       id: 'papers',
-      label: 'Papers',
+      label: 'Paper',
       title: paper.title,
       description: paper.abstract ?? '',
       href: '/papers',
       external: false,
       cta: 'View papers',
+      date: paper.publishedDate,
     })
   }
 
@@ -56,6 +63,8 @@ export function buildStackSections({
       href: `/tools/${tools[0].id}`,
       external: false,
       cta: 'Open the tool',
+      secondaryHref: '/tools',
+      secondaryCta: 'View all',
     })
   }
 
