@@ -14,7 +14,7 @@ export default function AboutPage() {
       <PageHeader eyebrow="About" title={profile.name} />
       <div className="flex flex-col sm:flex-row gap-10 items-center sm:items-start">
         <div className="relative w-36 h-36 flex-shrink-0 rounded-full overflow-hidden ring-1 ring-[var(--accent-soft)] ring-offset-4 ring-offset-[var(--bg)]">
-          <Image src={profile.photo} alt={profile.name} fill sizes="144px" className="object-cover" priority />
+          <Image src={profile.photo} alt={profile.name} fill sizes="144px" className="object-cover" loading="eager" />
         </div>
         <div className="text-center sm:text-left">
           <p className="font-sans text-sm text-[var(--text-muted)]">
@@ -57,7 +57,7 @@ export default function AboutPage() {
         <blockquote className="my-[var(--space-block)] border-l-2 border-[var(--accent)] pl-8 font-display text-[clamp(1.35rem,3vw,1.9rem)] italic leading-snug text-[var(--heading)]">
           {profile.statementOfPurpose}
         </blockquote>
-        <Reveal>
+        <Reveal className="space-y-5">
           {profile.bio.slice(1).map((paragraph, i) => (
             <p key={i}>{paragraph}</p>
           ))}

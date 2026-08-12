@@ -90,7 +90,7 @@ html[data-theme='light'] {
     opacity: 0;
     transform: translateY(16px);
     transition: opacity 500ms ease-out, transform 500ms ease-out;
-    animation: reveal-failsafe 400ms ease-out 3s forwards;
+    animation: reveal-failsafe 400ms ease-out 8s forwards;
   }
 
   .reveal[data-revealed='true'] {
@@ -103,7 +103,7 @@ html[data-theme='light'] {
     position: sticky;
     /* Offset from the full nav height, not the compact one, so a card
        never pins underneath the nav mid-transition. */
-    top: calc(var(--nav-h) + var(--i) * 12px);
+    top: calc(var(--nav-h) + var(--i, 0) * 12px);
   }
 }
 

@@ -10,7 +10,7 @@ describe('Section', () => {
 
   it('applies the section spacing token', () => {
     const { container } = render(<Section><p>x</p></Section>)
-    expect(container.firstChild).toHaveClass('py-[var(--space-section)]')
+    expect(container.firstChild).toHaveClass('py-[calc(var(--space-section)/2)]')
   })
 
   it('renders as the requested element', () => {

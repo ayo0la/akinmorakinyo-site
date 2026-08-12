@@ -70,6 +70,14 @@ describe('reveal failsafe animation', () => {
     expect(revealRule).toMatch(/animation:\s*reveal-failsafe/)
   })
 
+  it('delays the failsafe by 8s so it does not fire before a normal scroll reaches the section', () => {
+    const revealIndex = css.indexOf('.reveal {')
+    expect(revealIndex).toBeGreaterThan(-1)
+
+    const revealRule = extractRule(css, revealIndex)
+    expect(revealRule).toMatch(/animation:\s*reveal-failsafe\s+400ms\s+ease-out\s+8s\s+forwards/)
+  })
+
   it('cancels the failsafe animation once JS marks the element revealed', () => {
     const revealedIndex = css.indexOf(".reveal[data-revealed='true']")
     expect(revealedIndex).toBeGreaterThan(-1)

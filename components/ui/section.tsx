@@ -21,7 +21,7 @@ export function Section({
   width?: keyof typeof WIDTHS
 }) {
   return (
-    <Tag className={`py-[var(--space-section)] px-[var(--gutter)] ${className}`}>
+    <Tag className={`py-[calc(var(--space-section)/2)] px-[var(--gutter)] ${className}`}>
       <div className={`${WIDTHS[width]} mx-auto`}>{children}</div>
     </Tag>
   )

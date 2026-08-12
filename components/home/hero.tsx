@@ -55,7 +55,7 @@ export function Hero({ profile }: { profile: Profile }) {
               fill
               sizes="(min-width: 640px) 192px, 160px"
               className="object-cover"
-              preload
+              loading="eager"
             />
           </div>
         </div>
