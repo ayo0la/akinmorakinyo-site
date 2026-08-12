@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { getTool, getTools } from '@/lib/content'
 import { DatasetViewer } from '@/components/tools/dataset-viewer'
 import { getCalculator } from '@/components/tools/calculators/registry'
+import { Section } from '@/components/ui/section'
+import { Card } from '@/components/ui/card'
 
 export const dynamicParams = false
 
@@ -26,8 +28,8 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
   if (!tool) notFound()
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-      <div className="mb-10">
+    <Section width="narrow">
+      <div className="mb-[var(--space-block)]">
         <p className="font-sans text-xs tracking-[0.25em] uppercase text-[var(--accent)] capitalize">
           {tool.type}
         </p>
@@ -42,20 +44,24 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
         (() => {
           const Calculator = getCalculator(tool.componentSlug)
           return Calculator ? (
-            <Calculator />
+            <Card>
+              <Calculator />
+            </Card>
           ) : (
             <p className="text-[var(--text-muted)]">Calculator not found: {tool.componentSlug}</p>
           )
         })()}
 
       {tool.type === 'dataset' && tool.datasetPath && (
-        <DatasetViewer
-          csvUrl={tool.datasetPath}
-          xAxis={tool.xAxis ?? 'x'}
-          yAxis={tool.yAxis ?? 'y'}
-          visualizationType={tool.visualizationType}
-        />
+        <Card>
+          <DatasetViewer
+            csvUrl={tool.datasetPath}
+            xAxis={tool.xAxis ?? 'x'}
+            yAxis={tool.yAxis ?? 'y'}
+            visualizationType={tool.visualizationType}
+          />
+        </Card>
       )}
-    </div>
+    </Section>
   )
 }
