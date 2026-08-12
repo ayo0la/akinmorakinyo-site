@@ -55,6 +55,17 @@ describe('reduced motion', () => {
     expect(revealRule).toMatch(/transform:\s*none/)
   })
 
+  it('explicitly cancels the reveal failsafe animation, scoped to the .reveal rule itself', () => {
+    // Belt-and-suspenders: the global animation-duration/iteration-count
+    // overrides below already neutralize the failsafe's visual effect,
+    // but state the intent directly rather than relying on that alone.
+    const revealIndex = mediaBlock.indexOf('.reveal')
+    expect(revealIndex).toBeGreaterThan(-1)
+
+    const revealRule = extractRule(mediaBlock, revealIndex)
+    expect(revealRule).toMatch(/animation:\s*none/)
+  })
+
   it('returns the sticky stack to normal document flow, scoped to the .stack-item rule itself', () => {
     const stackIndex = mediaBlock.indexOf('.stack-item')
     expect(stackIndex).toBeGreaterThan(-1)
