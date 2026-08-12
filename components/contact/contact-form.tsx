@@ -7,8 +7,8 @@ function Field({ id, label, type = 'text', required = false }: { id: string; lab
     <div>
       <label htmlFor={id} className="block text-[var(--text-muted)] text-xs mb-1">{label}{required && ' *'}</label>
       {type === 'textarea'
-        ? <textarea id={id} name={id} required={required} rows={3} className="w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--heading)] text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--accent)] resize-none" />
-        : <input id={id} name={id} type={type} required={required} className="w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--heading)] text-sm px-3 py-2 rounded focus:outline-none focus:border-[var(--accent)]" />
+        ? <textarea id={id} name={id} required={required} rows={3} className="w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--heading)] text-sm px-3 py-2 rounded-[var(--radius-input)] focus:outline-none focus:border-[var(--accent)] resize-none" />
+        : <input id={id} name={id} type={type} required={required} className="w-full bg-[var(--surface-2)] border border-[var(--border)] text-[var(--heading)] text-sm px-3 py-2 rounded-[var(--radius-input)] focus:outline-none focus:border-[var(--accent)]" />
       }
     </div>
   )
@@ -71,7 +71,11 @@ export function ContactForm({ inquiryType }: { inquiryType: InquiryType }) {
         </>
       )}
       {inquiryType === 'general' && <Field id="message" label="Message" type="textarea" required />}
-      <button type="submit" disabled={status === 'sending'} className="bg-[var(--accent)] text-[var(--accent-contrast)] font-bold py-2.5 rounded text-sm hover:opacity-90 transition-opacity disabled:opacity-60">
+      <button
+        type="submit"
+        disabled={status === 'sending'}
+        className="inline-flex items-center justify-center font-sans text-sm font-semibold tracking-wide px-7 py-3 rounded-[var(--radius-pill)] bg-[var(--accent)] text-[var(--accent-contrast)] hover:bg-[var(--accent-strong)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+      >
         {status === 'sending' ? 'Sending...' : 'Send Inquiry'}
       </button>
       {status === 'error' && <p className="text-[var(--danger)] text-sm text-center">Something went wrong. Please try again.</p>}

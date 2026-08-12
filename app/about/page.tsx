@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { getProfile } from '@/lib/content'
 import { PageHeader } from '@/components/page-header'
+import { Section } from '@/components/ui/section'
+import { Reveal } from '@/components/ui/reveal'
 
 export const metadata = { title: 'About · Dr. Akinola E. Morakinyo' }
 
@@ -8,7 +10,7 @@ export default function AboutPage() {
   const profile = getProfile()
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+    <Section width="narrow">
       <PageHeader eyebrow="About" title={profile.name} />
       <div className="flex flex-col sm:flex-row gap-10 items-center sm:items-start">
         <div className="relative w-36 h-36 flex-shrink-0 rounded-full overflow-hidden ring-1 ring-[var(--accent-soft)] ring-offset-4 ring-offset-[var(--bg)]">
@@ -48,11 +50,19 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-      <div className="mt-12 space-y-5 text-lg leading-relaxed">
-        {profile.bio.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
-        ))}
+      <div className="mt-12 max-w-[var(--measure)] space-y-5 text-lg leading-relaxed">
+        <Reveal>
+          <p>{profile.bio[0]}</p>
+        </Reveal>
+        <blockquote className="my-[var(--space-block)] border-l-2 border-[var(--accent)] pl-8 font-display text-[clamp(1.35rem,3vw,1.9rem)] italic leading-snug text-[var(--heading)]">
+          {profile.statementOfPurpose}
+        </blockquote>
+        <Reveal>
+          {profile.bio.slice(1).map((paragraph, i) => (
+            <p key={i}>{paragraph}</p>
+          ))}
+        </Reveal>
       </div>
-    </div>
+    </Section>
   )
 }

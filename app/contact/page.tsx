@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { InquirySelector } from '@/components/contact/inquiry-selector'
 import { ContactForm } from '@/components/contact/contact-form'
 import { PageHeader } from '@/components/page-header'
+import { Section } from '@/components/ui/section'
 import type { InquiryType } from '@/lib/types'
 
 const LABELS: Record<InquiryType, string> = {
@@ -16,7 +17,7 @@ export default function ContactPage() {
   const [inquiryType, setInquiryType] = useState<InquiryType>('speaking')
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+    <Section width="narrow">
       <PageHeader
         eyebrow="Contact"
         title="Get in Touch"
@@ -31,6 +32,6 @@ export default function ContactPage() {
           <ContactForm inquiryType={inquiryType} />
         </div>
       </div>
-    </div>
+    </Section>
   )
 }
