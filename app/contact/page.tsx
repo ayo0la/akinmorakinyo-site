@@ -17,7 +17,7 @@ export default function ContactPage() {
   const [inquiryType, setInquiryType] = useState<InquiryType>('speaking')
 
   return (
-    <Section width="narrow">
+    <Section width="medium">
       <PageHeader
         eyebrow="Contact"
         title="Get in Touch"

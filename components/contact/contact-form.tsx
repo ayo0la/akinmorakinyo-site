@@ -74,7 +74,7 @@ export function ContactForm({ inquiryType }: { inquiryType: InquiryType }) {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="inline-flex items-center justify-center font-sans text-sm font-semibold tracking-wide px-7 py-3 rounded-[var(--radius-pill)] bg-[var(--accent)] text-[var(--accent-contrast)] hover:bg-[var(--accent-strong)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="inline-flex items-center justify-center font-sans text-sm font-semibold tracking-wide px-7 py-3 rounded-[var(--radius-pill)] bg-[var(--accent)] text-[var(--accent-contrast)] hover:bg-[var(--accent-strong)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
       >
         {status === 'sending' ? 'Sending...' : 'Send Inquiry'}
       </button>

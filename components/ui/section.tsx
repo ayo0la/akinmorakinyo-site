@@ -4,6 +4,7 @@ type SectionElement = 'section' | 'div' | 'article' | 'header'
 
 const WIDTHS = {
   wide: 'max-w-5xl',
+  medium: 'max-w-4xl',
   narrow: 'max-w-3xl',
   prose: 'max-w-2xl',
 } as const

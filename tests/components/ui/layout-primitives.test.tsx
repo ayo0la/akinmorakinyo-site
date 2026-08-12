@@ -34,6 +34,13 @@ describe('Section', () => {
     expect(container.querySelector('.max-w-5xl')).toBeNull()
   })
 
+  it('supports the medium measure used by the contact page', () => {
+    const { container } = render(<Section width="medium"><p>x</p></Section>)
+    expect(container.querySelector('.max-w-4xl')).not.toBeNull()
+    expect(container.querySelector('.max-w-3xl')).toBeNull()
+    expect(container.querySelector('.max-w-5xl')).toBeNull()
+  })
+
   it('supports the prose measure used by the writing detail page', () => {
     const { container } = render(<Section width="prose"><p>x</p></Section>)
     expect(container.querySelector('.max-w-2xl')).not.toBeNull()
